@@ -1,0 +1,23 @@
+name: Weekly Post
+
+on:
+  schedule:
+    # Runs every Sunday at 9:00 AM PST (17:00 UTC)
+    - cron: "0 17 * * 0"
+
+  workflow_dispatch:
+
+jobs:
+  post-weekly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post Weekly Tweet
+        run: |
+          curl -X POST "https://api.x.com/2/tweets" \
+          -H "Authorization: Bearer ${{ secrets.BEARER_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "community_id": "1802983397427695671",
+            "text": "What did you do for Armenia this week? 🇦🇲",
+          }'
